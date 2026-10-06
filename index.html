@@ -104,12 +104,11 @@
   /* HERO */
   .hero {
     position: relative;
-    height: 100vh;
-    min-height: 700px;
+    min-height: max(100vh, 700px);
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
-    padding: 0 48px 72px;
+    justify-content: flex-start;
+    padding: 120px 48px 72px;
     overflow: hidden;
   }
   .hero-bg {
@@ -117,7 +116,7 @@
     inset: 0;
     background:
       linear-gradient(to bottom, rgba(248,246,243,0.15) 0%, rgba(248,246,243,0.75) 70%, var(--black) 100%),
-      url('filmset.jpg') center/cover no-repeat;
+      url('hero-biplane.jpg') center/cover no-repeat;
   }
   .hero-bg::after {
     content: '';
@@ -154,6 +153,7 @@
     color: #444;
     font-size: 0.72em;
     letter-spacing: 0.01em;
+    line-height: 1.12;
   }
   .hero-sub {
     position: relative;
@@ -241,7 +241,7 @@
   .ticker-track {
     display: flex;
     gap: 0;
-    animation: ticker 28s linear infinite;
+    animation: ticker 52s linear infinite;
     width: max-content;
   }
   .ticker-item {
@@ -513,9 +513,10 @@
   .work-item:nth-child(1) { grid-column: span 7; grid-row: span 2; }
   .work-item:nth-child(2) { grid-column: span 5; }
   .work-item:nth-child(3) { grid-column: span 5; }
-  .work-item:nth-child(4) { grid-column: span 4; }
-  .work-item:nth-child(5) { grid-column: span 4; }
-  .work-item:nth-child(6) { grid-column: span 4; }
+  .work-item:nth-child(4) { grid-column: span 3; }
+  .work-item:nth-child(5) { grid-column: span 3; }
+  .work-item:nth-child(6) { grid-column: span 3; }
+  .work-item:nth-child(7) { grid-column: span 3; }
   .work-thumb {
     width: 100%;
     aspect-ratio: 16/10;
@@ -969,7 +970,7 @@
   @media (max-width: 900px) {
     nav { padding: 24px; }
     section { padding: 80px 24px; }
-    .hero { padding: 0 24px 56px; }
+    .hero { padding: 120px 24px 56px; }
     .hero-scroll { display: none; }
     .about, .cap-grid, .contact-inner { grid-template-columns: 1fr; gap: 48px; }
     .services-grid { grid-template-columns: 1fr; }
@@ -978,7 +979,8 @@
     .work-item:nth-child(3) { grid-column: span 12; }
     .work-item:nth-child(4),
     .work-item:nth-child(5),
-    .work-item:nth-child(6) { grid-column: span 12; }
+    .work-item:nth-child(6),
+    .work-item:nth-child(7) { grid-column: span 12; }
     .work-header { flex-direction: column; gap: 24px; align-items: flex-start; }
     footer { flex-direction: column; gap: 24px; text-align: center; }
     .about-accent, .about-accent-2 { display: none; }
@@ -1000,8 +1002,6 @@
   </a>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
-    <li><a href="#partnerships">Partnerships</a></li>
-    <li><a href="#services">Services</a></li>
     <li><a href="#work">Work</a></li>
     <li><a href="#capabilities">Capabilities</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -1011,13 +1011,13 @@
 <!-- HERO -->
 <section class="hero" id="home">
   <div class="hero-bg"></div>
-  <p class="hero-eyebrow">Atlanta · Worldwide · 20 Years in Production</p>
+  <p class="hero-eyebrow">Worldwide · 20 Years</p>
   <h1 class="hero-headline">
-    STORIES<br>
-    WORTH<br>
-    <em>Telling.</em>
+    <em>Make them<br>
+    feel<br>
+    Something</em>
   </h1>
-  <p class="hero-sub">Full-spectrum video production — from concept to screen. Director, DP, producer, and trusted creative partner to the world's most recognizable brands.</p>
+  <p class="hero-sub">Film and creative house built to connect the people who matter to you most. Full-spectrum content from concept to screen. Trusted creative partner to the world's most recognizable brands.</p>
   <div class="hero-cta">
     <a href="#contact" class="btn-primary">Start a Project</a>
     <a href="#reel-video" class="btn-ghost">Watch Reel</a>
@@ -1029,20 +1029,32 @@
 <!-- CLIENT TICKER -->
 <div class="ticker-wrap">
   <div class="ticker-track" id="ticker">
-    <span class="ticker-item">Delta Airlines</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Delta Air Lines</span><span class="ticker-sep">✦</span>
     <span class="ticker-item">Coca-Cola</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Porsche</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">AT&amp;T</span><span class="ticker-sep">✦</span>
     <span class="ticker-item">Volvo</span><span class="ticker-sep">✦</span>
     <span class="ticker-item">UPS</span><span class="ticker-sep">✦</span>
     <span class="ticker-item">Chick-fil-A</span><span class="ticker-sep">✦</span>
-    <span class="ticker-item">Veterans Non-Profit</span><span class="ticker-sep">✦</span>
-    <span class="ticker-item">TBD Creative</span><span class="ticker-sep">✦</span>
-    <span class="ticker-item">Delta Airlines</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Camping World</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Sonic</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Cricket Wireless</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">ADDO</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Salesforce</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">CRH</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Delta Air Lines</span><span class="ticker-sep">✦</span>
     <span class="ticker-item">Coca-Cola</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Porsche</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">AT&amp;T</span><span class="ticker-sep">✦</span>
     <span class="ticker-item">Volvo</span><span class="ticker-sep">✦</span>
     <span class="ticker-item">UPS</span><span class="ticker-sep">✦</span>
     <span class="ticker-item">Chick-fil-A</span><span class="ticker-sep">✦</span>
-    <span class="ticker-item">Veterans Non-Profit</span><span class="ticker-sep">✦</span>
-    <span class="ticker-item">TBD Creative</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Camping World</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Sonic</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Cricket Wireless</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">ADDO</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Salesforce</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">CRH</span><span class="ticker-sep">✦</span>
   </div>
 </div>
 
@@ -1050,17 +1062,21 @@
 <section id="about">
   <div class="about">
     <div class="about-visual reveal">
-      <img class="about-photo" src="daniel.jpg" alt="Daniel Draddy — Video Producer and Director">
+      <img class="about-photo" src="about-daniel-rome.jpg" alt="Daniel Draddy walking down a cobblestone street holding a camera">
       <div class="about-accent"></div>
       <div class="about-accent-2"></div>
     </div>
     <div class="about-content reveal">
-      <div class="section-label">About Draddy</div>
+      <div class="section-label">About</div>
       <h2 class="section-title">DANIEL<br><em>Draddy</em></h2>
       <div class="about-body">
-        <p>For two decades, Daniel Draddy has been the name that ad agencies, production houses, and Fortune 500 brands reach for when the stakes are high and the vision is ambitious. Known simply as <strong>Draddy</strong>, he brings a rare combination to every project: the technical precision of a seasoned director of photography and the business fluency of an executive producer.</p>
-        <p>From orchestrating nationwide commercial shoots for Delta Airlines and Coca-Cola to directing intimate documentary work for veterans returning home, Draddy approaches every frame with the same commitment — <strong>tell the truth beautifully.</strong></p>
-        <p>Based in Atlanta and built for anywhere, Draddy operates as an independent creative executive. His network of trusted collaborators spans every discipline — lighting, audio, talent, post — assembled specifically for each project, every time.</p>
+        <p>Most people just call me Draddy.</p>
+        <p>For 20 plus years I’ve been making things. Commercials, documentaries, narrative films, live concerts and plenty of projects that don’t fit neatly into a category.</p>
+        <p>I started on the technical side of production, which means I still care deeply about how things are made. But over the years, my role has grown well beyond the camera. Today, I help take ideas from the first conversation all the way through the final frame.</p>
+        <p>I’ve been fortunate to work with agencies, production companies, and brands like Delta Air Lines, Coca-Cola, Porsche, AT&amp;T, Volvo, and Chick-fil-A. Some projects have taken me across the world with big crews and complicated logistics. Others have been a small team, a camera, and someone trusting Draddy with their story. I love both.</p>
+        <p>The common thread for me has always been people. Finding the thing that feels real. Building a team that cares about the work. Solving the problems that inevitably show up. And making something at the end of it that we’re all genuinely proud to put our names on.</p>
+        <p>I’m based in Atlanta, work everywhere, and stay intentionally independent. For each project, I bring together the talented humans it takes to make good work.</p>
+        <p>If you have a project in mind, I’d love to hear about it.</p>
       </div>
       <div class="about-stats">
         <div class="stat">
@@ -1075,124 +1091,6 @@
           <div class="stat-num">50+</div>
           <div class="stat-label">Major Brand Clients</div>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PARTNERSHIPS -->
-<section id="partnerships">
-  <div class="partnerships-intro reveal">
-    <div class="section-label">Creative Network</div>
-    <h2 class="section-title">BUILT ON<br><em>Partnership.</em></h2>
-    <p class="section-body">Great work doesn't happen in isolation. Draddy operates at the center of a constellation of creative companies — each bringing deep expertise in their discipline, all united by a shared commitment to work that moves people.</p>
-  </div>
-  <div class="circles-wrap">
-
-    <!-- Made Wild — top left — P1.jpg -->
-    <div class="partner-circle p-madewild reveal">
-      <div class="partner-bg" style="background-image: url('P1.jpg');"></div>
-      <div class="partner-overlay">
-        <div class="partner-name">Made<br>Wild</div>
-        <div class="partner-tag">Creative Partner</div>
-      </div>
-    </div>
-
-    <!-- First Water — top right — P2.jpg -->
-    <div class="partner-circle p-firstwater reveal">
-      <div class="partner-bg" style="background-image: url('P2.jpg');"></div>
-      <div class="partner-overlay">
-        <div class="partner-name">First<br>Water</div>
-        <div class="partner-tag">Creative Partner</div>
-      </div>
-    </div>
-
-    <!-- Ponder — bottom center — P3.jpg -->
-    <div class="partner-circle p-ponder reveal">
-      <div class="partner-bg" style="background-image: url('P3.jpg');"></div>
-      <div class="partner-overlay">
-        <div class="partner-name">Ponder</div>
-        <div class="partner-tag">Creative Partner</div>
-      </div>
-    </div>
-
-    <!-- TBD Creative — center intersection — P4.jpg -->
-    <div class="partner-circle p-tbd reveal">
-      <div class="partner-bg" style="background-image: url('P4.jpg');"></div>
-      <div class="partner-overlay">
-        <div class="partner-name">TBD<br>Creative</div>
-        <div class="partner-tag">Production Partner</div>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- SERVICES -->
-<section id="services">
-  <div style="max-width:1300px;margin:0 auto;" class="reveal">
-    <div class="section-label">What We Do</div>
-    <h2 class="section-title">FULL-SPECTRUM<br><em>Production</em></h2>
-  </div>
-  <div class="services-grid">
-    <div class="service-card reveal">
-      <div class="service-num">01</div>
-      <div class="service-name">Brand & Commercial</div>
-      <div class="service-desc">Large-scale commercial productions for global brands. RFP to rollout — concept development, stakeholder alignment, crew assembly, full production and post.</div>
-      <div class="service-tags">
-        <span class="tag">TV Spots</span>
-        <span class="tag">Brand Films</span>
-        <span class="tag">Campaign Content</span>
-      </div>
-    </div>
-    <div class="service-card reveal">
-      <div class="service-num">02</div>
-      <div class="service-name">Documentary & Cause</div>
-      <div class="service-desc">Purposeful storytelling that moves people to act. Non-profit appeals, impact films, and human-interest narratives crafted with genuine emotional intelligence.</div>
-      <div class="service-tags">
-        <span class="tag">Non-Profit</span>
-        <span class="tag">Impact Films</span>
-        <span class="tag">Donor Appeal</span>
-      </div>
-    </div>
-    <div class="service-card reveal">
-      <div class="service-num">03</div>
-      <div class="service-name">Live Events & Production</div>
-      <div class="service-desc">Multi-camera live event capture, premieres, screenings, and stakeholder presentations. Venue management, crew coordination, real-time production leadership.</div>
-      <div class="service-tags">
-        <span class="tag">Live Venues</span>
-        <span class="tag">Premieres</span>
-        <span class="tag">Presentations</span>
-      </div>
-    </div>
-    <div class="service-card reveal">
-      <div class="service-num">04</div>
-      <div class="service-name">Director of Photography</div>
-      <div class="service-desc">Available as DP on productions of any scale. Proficient across all camera platforms including dolly, drone, handheld, and studio configurations.</div>
-      <div class="service-tags">
-        <span class="tag">Drone / Aerial</span>
-        <span class="tag">Dolly Cam</span>
-        <span class="tag">All Formats</span>
-      </div>
-    </div>
-    <div class="service-card reveal">
-      <div class="service-num">05</div>
-      <div class="service-name">Creative Direction</div>
-      <div class="service-desc">Content strategy, script development, talent acquisition, and narrative architecture. Transforming a brief into a blueprint that every department can execute against.</div>
-      <div class="service-tags">
-        <span class="tag">Scripting</span>
-        <span class="tag">Talent</span>
-        <span class="tag">Storyboarding</span>
-      </div>
-    </div>
-    <div class="service-card reveal">
-      <div class="service-num">06</div>
-      <div class="service-name">Post Production</div>
-      <div class="service-desc">Edit, color, audio mix, and delivery. Full post-production pipeline management from raw capture through final deliverable across all platforms and formats.</div>
-      <div class="service-tags">
-        <span class="tag">Edit</span>
-        <span class="tag">Color</span>
-        <span class="tag">Multi-Platform</span>
       </div>
     </div>
   </div>
@@ -1214,51 +1112,59 @@
   </div>
   <div class="work-grid">
     <div class="work-item">
-      <img class="work-thumb" src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=900&q=80&fit=crop" alt="Commercial Production" loading="lazy">
+      <img class="work-thumb" src="work-delta.jpg" alt="Camera crew shooting in the rain at a Delta Air Lines hangar" loading="lazy">
       <div class="work-overlay">
         <div class="work-client">Delta Airlines</div>
-        <div class="work-title">National Brand Campaign</div>
-        <div class="work-type">Commercial · Director / DP</div>
+        <div class="work-title">Behind the Scenes</div>
+        <div class="work-type">On location</div>
       </div>
     </div>
     <div class="work-item">
-      <img class="work-thumb" src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=600&q=80&fit=crop" alt="Documentary Production" loading="lazy">
-      <div class="work-overlay">
-        <div class="work-client">Veterans Non-Profit</div>
-        <div class="work-title">Coming Home</div>
-        <div class="work-type">Documentary · Producer / Director</div>
-      </div>
-    </div>
-    <div class="work-item">
-      <img class="work-thumb" src="https://images.unsplash.com/photo-1485846234645-a62644f84728?w=600&q=80&fit=crop" alt="Corporate Production" loading="lazy">
-      <div class="work-overlay">
-        <div class="work-client">Coca-Cola</div>
-        <div class="work-title">Brand Identity Film</div>
-        <div class="work-type">Commercial · DP / Camera</div>
-      </div>
-    </div>
-    <div class="work-item">
-      <img class="work-thumb" src="https://images.unsplash.com/photo-1578022761797-b8636ac1773c?w=500&q=80&fit=crop" alt="Live Event" loading="lazy">
-      <div class="work-overlay">
-        <div class="work-client">Live Production</div>
-        <div class="work-title">Multi-Camera Event</div>
-        <div class="work-type">Live · Production Lead</div>
-      </div>
-    </div>
-    <div class="work-item">
-      <img class="work-thumb" src="https://images.unsplash.com/photo-1533561052604-c3beb6d55b8d?w=500&q=80&fit=crop" alt="Aerial Drone" loading="lazy">
+      <img class="work-thumb" src="work-volvo.jpg" alt="Two-camera interview setup at a Volvo dealership" loading="lazy">
       <div class="work-overlay">
         <div class="work-client">Volvo</div>
-        <div class="work-title">Aerial Campaign</div>
-        <div class="work-type">Commercial · Drone / DP</div>
+        <div class="work-title">Behind the Scenes</div>
+        <div class="work-type">Two-camera interview</div>
       </div>
     </div>
     <div class="work-item">
-      <img class="work-thumb" src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=500&q=80&fit=crop" alt="Corporate Interview" loading="lazy">
+      <img class="work-thumb" src="work-sonic.jpg" alt="Film crew and lighting setup at a Sonic drive-in" loading="lazy">
       <div class="work-overlay">
-        <div class="work-client">UPS</div>
-        <div class="work-title">Corporate Series</div>
-        <div class="work-type">Corporate · Director</div>
+        <div class="work-client">Sonic</div>
+        <div class="work-title">Behind the Scenes</div>
+        <div class="work-type">On location</div>
+      </div>
+    </div>
+    <div class="work-item">
+      <img class="work-thumb" src="work-coral.jpg" alt="Camera operator filming a worker tending coral in an outdoor tank" loading="lazy">
+      <div class="work-overlay">
+        <div class="work-client">On Location</div>
+        <div class="work-title">Behind the Scenes</div>
+        <div class="work-type">Coral nursery</div>
+      </div>
+    </div>
+    <div class="work-item">
+      <img class="work-thumb" src="work-studio.jpg" alt="Lit studio set with a seated subject and camera under a skylight" loading="lazy">
+      <div class="work-overlay">
+        <div class="work-client">Studio</div>
+        <div class="work-title">Behind the Scenes</div>
+        <div class="work-type">Interview set</div>
+      </div>
+    </div>
+    <div class="work-item">
+      <img class="work-thumb" src="work-prosthetic.jpg" alt="Crew member holding a prosthetic face mask on set" loading="lazy">
+      <div class="work-overlay">
+        <div class="work-client">Production</div>
+        <div class="work-title">Behind the Scenes</div>
+        <div class="work-type">Prosthetics</div>
+      </div>
+    </div>
+    <div class="work-item">
+      <img class="work-thumb" src="work-desert.jpg" alt="Camera and boom microphone filming a seated subject in a desert" loading="lazy">
+      <div class="work-overlay">
+        <div class="work-client">On Location</div>
+        <div class="work-title">Behind the Scenes</div>
+        <div class="work-type">Desert shoot</div>
       </div>
     </div>
   </div>
