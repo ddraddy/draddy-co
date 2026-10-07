@@ -1292,6 +1292,7 @@
         </div>
         <button type="submit" class="form-submit">Send Message →</button>
         <div id="form-confirm" style="display:none;margin-top:16px;font-size:13px;color:#333;letter-spacing:0.1em;">Message received — Draddy will be in touch shortly.</div>
+        <div id="form-error" style="display:none;margin-top:16px;font-size:13px;color:#c23b22;letter-spacing:0.1em;">Sorry, your message didn’t go through. Please try again in a moment.</div>
       </form>
     </div>
   </div>
@@ -1337,24 +1338,35 @@
 
   // Form submit
   function handleSubmit(e) {
+    e.preventDefault();
     const form = e.target;
-    const data = new FormData(form);
+    const btn = form.querySelector('.form-submit');
+    const confirmEl = document.getElementById('form-confirm');
+    const errorEl = document.getElementById('form-error');
+    confirmEl.style.display = 'none';
+    errorEl.style.display = 'none';
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
     fetch('/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams(data).toString()
+      body: new URLSearchParams(new FormData(form)).toString()
     })
-    .then(() => {
-      document.getElementById('form-confirm').style.display = 'block';
-      form.querySelector('.form-submit').textContent = 'Sent ✓';
-      form.querySelector('.form-submit').style.background = '#2a5c3a';
-      form.querySelector('.form-submit').style.color = '#9eddb0';
+    .then(res => {
+      // fetch only fails on network errors, so check that the server accepted it
+      if (!res.ok) throw new Error('Form not accepted: ' + res.status);
+      confirmEl.style.display = 'block';
+      btn.textContent = 'Sent ✓';
+      btn.style.background = '#2a5c3a';
+      btn.style.color = '#9eddb0';
+      btn.disabled = false;
       form.reset();
     })
     .catch(() => {
-      alert('Something went wrong. Please try again.');
+      errorEl.style.display = 'block';
+      btn.textContent = 'Send Message →';
+      btn.disabled = false;
     });
-    e.preventDefault();
   }
 
   // Nav scroll effect
