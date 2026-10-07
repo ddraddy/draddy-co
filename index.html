@@ -4,6 +4,24 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Draddy — Video Production</title>
+<meta name="description" content="Film and creative house built to connect the people who matter to you most. Full-spectrum content from concept to screen. Based in Atlanta, working everywhere.">
+<meta name="theme-color" content="#f8f6f3">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<!-- Link-sharing preview. The image address must be a full web address: change
+     draddy-co.netlify.app to draddy.co here (and in og:url) when the real domain goes live. -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Draddy">
+<meta property="og:title" content="Draddy — Make them feel Something">
+<meta property="og:description" content="Film and creative house built to connect the people who matter to you most. Full-spectrum content from concept to screen.">
+<meta property="og:url" content="https://draddy-co.netlify.app/">
+<meta property="og:image" content="https://draddy-co.netlify.app/share-preview.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Draddy — Make them feel Something">
+<meta name="twitter:description" content="Film and creative house built to connect the people who matter to you most. Full-spectrum content from concept to screen.">
+<meta name="twitter:image" content="https://draddy-co.netlify.app/share-preview.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
@@ -100,6 +118,32 @@
     transition: opacity 0.2s, color 0.2s;
   }
   .nav-links a:hover { opacity: 1; color: #111; }
+
+  /* Phone menu button (hidden on larger screens) */
+  .nav-toggle {
+    display: none;
+    position: relative;
+    z-index: 2;
+    width: 44px;
+    height: 44px;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+  .nav-toggle span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: #1a1a1a;
+    transition: transform 0.25s ease, opacity 0.2s ease;
+  }
+  .nav-open .nav-toggle span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+  .nav-open .nav-toggle span:nth-child(2) { opacity: 0; }
+  .nav-open .nav-toggle span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
   /* HERO */
   .hero {
@@ -985,7 +1029,22 @@
     footer { flex-direction: column; gap: 24px; text-align: center; }
     .about-accent, .about-accent-2 { display: none; }
     .form-row { grid-template-columns: 1fr; }
-    .nav-links { display: none; }
+    .nav-toggle { display: flex; }
+    .nav-links {
+      display: none;
+      position: absolute;
+      top: 110px;
+      right: 24px;
+      flex-direction: column;
+      gap: 0;
+      min-width: 210px;
+      padding: 8px 0;
+      background: #f8f6f3;
+      border: 1px solid rgba(0,0,0,0.1);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.12);
+    }
+    .nav-open .nav-links { display: flex; }
+    .nav-links a { display: block; padding: 16px 28px; font-size: 13px; opacity: 1; }
     .about-stats { grid-template-columns: repeat(3, 1fr); }
     .reel-video-wrap { padding: 0 24px; }
   }
@@ -1000,7 +1059,8 @@
   <a href="#" class="nav-logo">
     <img src="logo.png" alt="Draddy.co">
   </a>
-  <ul class="nav-links">
+  <button class="nav-toggle" id="nav-toggle" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav-menu"><span></span><span></span><span></span></button>
+  <ul class="nav-links" id="nav-menu">
     <li><a href="#about">About</a></li>
     <li><a href="#work">Work</a></li>
     <li><a href="#capabilities">Capabilities</a></li>
@@ -1303,7 +1363,7 @@
   <div class="footer-logo">
     <img src="logo.png" alt="Draddy.co">
   </div>
-  <div class="footer-copy">© 2025 TBD Creative · Daniel Draddy · All rights reserved</div>
+  <div class="footer-copy">© 2026 TBD Creative · Daniel Draddy · All rights reserved</div>
   <ul class="footer-links">
     <li><a href="#about">About</a></li>
     <li><a href="#work">Work</a></li>
@@ -1394,6 +1454,21 @@
       btn.disabled = false;
     });
   }
+
+  // Phone menu: open/close
+  (function () {
+    const nav = document.querySelector('nav');
+    const toggle = document.getElementById('nav-toggle');
+    function setOpen(open) {
+      nav.classList.toggle('nav-open', open);
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
+    toggle.addEventListener('click', () => setOpen(!nav.classList.contains('nav-open')));
+    nav.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click', () => setOpen(false)));
+    document.addEventListener('click', e => { if (!nav.contains(e.target)) setOpen(false); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') setOpen(false); });
+    window.addEventListener('resize', () => { if (window.innerWidth > 900) setOpen(false); });
+  })();
 
   // Nav scroll effect
   window.addEventListener('scroll', () => {
