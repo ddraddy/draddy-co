@@ -561,6 +561,8 @@
   .work-item:nth-child(5) { grid-column: span 3; }
   .work-item:nth-child(6) { grid-column: span 3; }
   .work-item:nth-child(7) { grid-column: span 3; }
+  .work-item:nth-child(8) { grid-column: span 12; }
+  .work-item:nth-child(8) .work-thumb { aspect-ratio: 21/9; }
   .work-thumb {
     width: 100%;
     aspect-ratio: 16/10;
@@ -570,6 +572,11 @@
     transition: filter 0.5s ease, transform 0.6s ease;
   }
   .work-item:nth-child(1) .work-thumb { aspect-ratio: 16/11; }
+  /* On wide screens the lead tile is as tall as the two stacked tiles beside it,
+     so let its photo fill the whole tile (no empty strip under the picture) */
+  @media (min-width: 901px) {
+    .work-item:nth-child(1) .work-thumb { height: 100%; aspect-ratio: auto; object-position: 25% center; }
+  }
   .work-item:hover .work-thumb {
     filter: grayscale(0%) brightness(0.75);
     transform: scale(1.04);
@@ -1024,7 +1031,9 @@
     .work-item:nth-child(4),
     .work-item:nth-child(5),
     .work-item:nth-child(6),
-    .work-item:nth-child(7) { grid-column: span 12; }
+    .work-item:nth-child(7),
+    .work-item:nth-child(8) { grid-column: span 12; }
+    .work-item:nth-child(8) .work-thumb { aspect-ratio: 16/10; }
     .work-header { flex-direction: column; gap: 24px; align-items: flex-start; }
     footer { flex-direction: column; gap: 24px; text-align: center; }
     .about-accent, .about-accent-2 { display: none; }
@@ -1174,7 +1183,7 @@
     <div class="work-item">
       <img class="work-thumb" src="work-delta.jpg" alt="Camera crew shooting in the rain at a Delta Air Lines hangar" loading="lazy">
       <div class="work-overlay">
-        <div class="work-client">Delta Airlines</div>
+        <div class="work-client">Delta Air Lines</div>
         <div class="work-title">Behind the Scenes</div>
         <div class="work-type">On location</div>
       </div>
@@ -1225,6 +1234,14 @@
         <div class="work-client">On Location</div>
         <div class="work-title">Behind the Scenes</div>
         <div class="work-type">Desert shoot</div>
+      </div>
+    </div>
+    <div class="work-item">
+      <img class="work-thumb" src="hero-biplane.jpg" alt="A vintage truck and biplane on a foggy airfield" loading="lazy">
+      <div class="work-overlay">
+        <div class="work-client">Delta Air Lines</div>
+        <div class="work-title">Behind the Scenes</div>
+        <div class="work-type">Vintage airfield</div>
       </div>
     </div>
   </div>
