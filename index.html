@@ -26,6 +26,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
+    --ticker-h: 148px;
     --black: #f8f6f3;
     --white: #1a1a1a;
     --cream: #ede9e3;
@@ -147,11 +148,14 @@
   /* HERO */
   .hero {
     position: relative;
-    min-height: max(100vh, 700px);
+    /* one screen minus the client ribbon, capped on very tall windows, so the ribbon
+       sits at the bottom of the first screen (the hero still grows if its text needs more) */
+    min-height: min(calc(100vh - var(--ticker-h)), 820px);
+    min-height: min(calc(100svh - var(--ticker-h)), 820px);
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    padding: 120px 48px 72px;
+    padding: 110px 48px 40px;
     overflow: hidden;
   }
   .hero-bg {
@@ -196,7 +200,7 @@
     color: #444;
     font-size: 0.72em;
     letter-spacing: 0.01em;
-    line-height: 1.12;
+    line-height: 1.06;
   }
   .hero-sub {
     position: relative;
@@ -273,26 +277,55 @@
     animation: scrollLine 1.8s ease-in-out infinite;
   }
 
-  /* CLIENT TICKER */
+  /* CLIENT TICKER: two staggered rows of names, both drifting right to left */
   .ticker-wrap {
     background: #eeebe7;
     border-top: 1px solid rgba(0,0,0,0.1);
     border-bottom: 1px solid rgba(0,0,0,0.1);
-    padding: 18px 0;
+    padding: 16px 0 10px;
+    overflow: hidden;
+    --ticker-row-h: 50px;
+  }
+  .ticker-label {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 0 48px 6px;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: #777;
+  }
+  .ticker-label::before {
+    content: '';
+    width: 32px;
+    height: 1px;
+    background: #777;
+  }
+  .ticker-row {
+    height: var(--ticker-row-h);
+    display: flex;
+    align-items: center;
     overflow: hidden;
   }
   .ticker-track {
     display: flex;
-    gap: 0;
-    animation: ticker 52s linear infinite;
+    align-items: center;
+    flex: none;
     width: max-content;
+    animation: tickerShift var(--dur, 60s) linear infinite;
+    will-change: transform;
   }
+  /* Start the second row half a lap behind, so the two rows' diamonds never line up */
+  .ticker-row-2 .ticker-track { animation-delay: calc(var(--dur, 60s) * -0.5); }
+  .ticker-wrap:hover .ticker-track { animation-play-state: paused; }
   .ticker-item {
     font-family: var(--font-display);
-    font-size: 15px;
-    letter-spacing: 0.22em;
+    font-size: 20px;
+    letter-spacing: 0.2em;
     color: #888;
-    padding: 0 40px;
+    padding: 0 34px;
     white-space: nowrap;
     transition: color 0.2s;
   }
@@ -300,8 +333,13 @@
   .ticker-sep {
     color: #aaa;
     padding: 0 4px;
-    opacity: 0.5;
+    opacity: 0.6;
     align-self: center;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .ticker-track { animation: none; flex-wrap: wrap; justify-content: center; width: auto; }
+    .ticker-row { height: auto; padding: 4px 24px; }
+    .ticker-track [data-clone] { display: none; }
   }
 
   /* SECTION SHARED */
@@ -848,9 +886,9 @@
     from { opacity: 0; transform: translateY(30px); }
     to { opacity: 1; transform: translateY(0); }
   }
-  @keyframes ticker {
+  @keyframes tickerShift {
     from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
+    to { transform: translateX(calc(-1 * var(--shift, 50%))); }
   }
   @keyframes scrollLine {
     0% { transform: scaleY(0); transform-origin: top; opacity: 1; }
@@ -1020,7 +1058,11 @@
   @media (max-width: 900px) {
     nav { padding: 24px; }
     section { padding: 80px 24px; }
-    .hero { padding: 120px 24px 56px; }
+    .hero { padding: 110px 24px 32px; }
+    :root { --ticker-h: 132px; }
+    .ticker-wrap { --ticker-row-h: 42px; }
+    .ticker-label { padding: 0 24px 6px; }
+    .ticker-item { font-size: 16px; padding: 0 24px; }
     .hero-scroll { display: none; }
     .about, .cap-grid, .contact-inner { grid-template-columns: 1fr; gap: 48px; }
     .services-grid { grid-template-columns: 1fr; }
@@ -1095,8 +1137,10 @@
 </section>
 
 <!-- CLIENT TICKER -->
-<div class="ticker-wrap">
-  <div class="ticker-track" id="ticker">
+<div class="ticker-wrap" aria-label="Selected clients">
+  <div class="ticker-label">Selected clients</div>
+  <div class="ticker-row">
+  <div class="ticker-track">
     <span class="ticker-item">Delta Air Lines</span><span class="ticker-sep">✦</span>
     <span class="ticker-item">Coca-Cola</span><span class="ticker-sep">✦</span>
     <span class="ticker-item">Porsche</span><span class="ticker-sep">✦</span>
@@ -1104,25 +1148,17 @@
     <span class="ticker-item">Volvo</span><span class="ticker-sep">✦</span>
     <span class="ticker-item">UPS</span><span class="ticker-sep">✦</span>
     <span class="ticker-item">Chick-fil-A</span><span class="ticker-sep">✦</span>
+  </div>
+  </div>
+  <div class="ticker-row ticker-row-2">
+  <div class="ticker-track">
     <span class="ticker-item">Camping World</span><span class="ticker-sep">✦</span>
     <span class="ticker-item">Sonic</span><span class="ticker-sep">✦</span>
     <span class="ticker-item">Cricket Wireless</span><span class="ticker-sep">✦</span>
     <span class="ticker-item">ADDO</span><span class="ticker-sep">✦</span>
     <span class="ticker-item">Salesforce</span><span class="ticker-sep">✦</span>
     <span class="ticker-item">CRH</span><span class="ticker-sep">✦</span>
-    <span class="ticker-item">Delta Air Lines</span><span class="ticker-sep">✦</span>
-    <span class="ticker-item">Coca-Cola</span><span class="ticker-sep">✦</span>
-    <span class="ticker-item">Porsche</span><span class="ticker-sep">✦</span>
-    <span class="ticker-item">AT&amp;T</span><span class="ticker-sep">✦</span>
-    <span class="ticker-item">Volvo</span><span class="ticker-sep">✦</span>
-    <span class="ticker-item">UPS</span><span class="ticker-sep">✦</span>
-    <span class="ticker-item">Chick-fil-A</span><span class="ticker-sep">✦</span>
-    <span class="ticker-item">Camping World</span><span class="ticker-sep">✦</span>
-    <span class="ticker-item">Sonic</span><span class="ticker-sep">✦</span>
-    <span class="ticker-item">Cricket Wireless</span><span class="ticker-sep">✦</span>
-    <span class="ticker-item">ADDO</span><span class="ticker-sep">✦</span>
-    <span class="ticker-item">Salesforce</span><span class="ticker-sep">✦</span>
-    <span class="ticker-item">CRH</span><span class="ticker-sep">✦</span>
+  </div>
   </div>
 </div>
 
@@ -1470,6 +1506,38 @@
       btn.disabled = false;
     });
   }
+
+  // Client ribbon: repeat each row's names so it always loops without a gap, at a steady speed
+  (function () {
+    const SPEED = 43; // pixels per second (same pace as the original one-row ribbon)
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+    function build() {
+      document.querySelectorAll('.ticker-track').forEach(track => {
+        track.querySelectorAll('[data-clone]').forEach(n => n.remove());
+        if (reduce.matches) return;
+        const originals = Array.from(track.children);
+        const setWidth = track.getBoundingClientRect().width;
+        if (!setWidth) return;
+        const copies = Math.ceil(window.innerWidth / setWidth) + 1;
+        for (let i = 1; i < copies; i++) {
+          originals.forEach(n => {
+            const c = n.cloneNode(true);
+            c.setAttribute('data-clone', '');
+            c.setAttribute('aria-hidden', 'true');
+            track.appendChild(c);
+          });
+        }
+        track.style.setProperty('--shift', setWidth + 'px');
+        track.style.setProperty('--dur', (setWidth / SPEED) + 's');
+      });
+    }
+    let lastWidth = window.innerWidth, timer;
+    window.addEventListener('resize', () => {
+      clearTimeout(timer);
+      timer = setTimeout(() => { if (window.innerWidth !== lastWidth) { lastWidth = window.innerWidth; build(); } }, 200);
+    });
+    (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(build);
+  })();
 
   // Phone menu: open/close
   (function () {
