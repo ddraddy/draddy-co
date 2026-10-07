@@ -1347,14 +1347,40 @@
     errorEl.style.display = 'none';
     btn.disabled = true;
     btn.textContent = 'Sending…';
-    fetch('/', {
+    const fd = new FormData(form);
+    // Hidden spam-trap field: real visitors never fill it in
+    if (fd.get('bot-field')) { btn.disabled = false; btn.textContent = 'Send Message →'; return; }
+
+    // Copy 1: Netlify keeps a record of every message in its dashboard (best effort)
+    const saveToNetlify = fetch('/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams(new FormData(form)).toString()
+      body: new URLSearchParams(fd).toString()
+    });
+    // Copy 2: Web3Forms emails the message to Daniel. This is the one that counts as "sent".
+    const emailDaniel = fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        access_key: '23189bd3-01bb-4492-99ce-5a1683c08006',
+        subject: 'New message from draddy.co',
+        from_name: 'draddy.co contact form',
+        name: (fd.get('first-name') + ' ' + fd.get('last-name')).trim(),
+        email: fd.get('email'),
+        company: fd.get('company'),
+        project_type: fd.get('project-type'),
+        message: fd.get('message') || '(no message)'
+      })
     })
-    .then(res => {
-      // fetch only fails on network errors, so check that the server accepted it
-      if (!res.ok) throw new Error('Form not accepted: ' + res.status);
+    .then(res => res.json())
+    .then(data => {
+      // fetch only fails on network errors, so check that the service accepted it
+      if (!data.success) throw new Error('Email not accepted: ' + data.message);
+    });
+
+    saveToNetlify.catch(() => {});
+    emailDaniel
+    .then(() => {
       confirmEl.style.display = 'block';
       btn.textContent = 'Sent ✓';
       btn.style.background = '#2a5c3a';
